@@ -1,0 +1,71 @@
+h1 {
+    color: darkblue;
+}
+body {
+    margin: 0px;
+    padding: 30px;
+    background: #a9a5a5;
+    overflow: hidden;
+}
+
+#header {
+    background: #f4f4f4;
+    font-size: 25px;
+    text-align: center;
+}
+
+canvas {
+    box-shadow: -3px 2px 9px 6px black;
+    cursor: pointer;
+    background: white;
+    height: 200px;
+    width: 640px;
+    align-self: center;
+}
+
+.tools {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    margin-top: 30px;
+}
+
+.tools .color-field {
+    height: 40px;
+    width: 640px;
+    min-height: 40;
+    min-width: 40px;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 2px solid black;
+    align-self: center;
+    margin: 0 10px;
+}
+
+.tools .button {
+    align-self: flex-start;
+    width: 100px;
+    height: 40px;
+    border: 2px solid white;
+    cursor: pointer;
+    color: white;
+    background: black;
+    font-weight: bold;
+    margin: 10px 10px;
+}
+
+.color-picker {
+    align-self: center;
+    margin: 0px 80px;
+    height: 40px;
+}
+.pen-range {
+    align-self: center;
+    margin: 0 10px;
+}
+
+.predictions {
+    display: grid;
+}

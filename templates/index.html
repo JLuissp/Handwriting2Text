@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Drawing Panel</title>
+        <h1 id="header"> Simple Drawing Panel</h1>
+        <link href="{{ url_for('static', filename='style/style.css') }}" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div>
+            <h2> Instructions:</h2>
+            <li>Escribe una palabra</li>
+            <li> click en submit</li>
+            <li> obten el la palabra en texto</li>
+        </div>
+        <hr><br>
+        </div>
+        <div class="field">
+            <div class="tools">
+                <form method="POST" action="/" enctype="multipart/form-data">
+                    <canvas id="canvas"></canvas>
+                    <br><br>
+                    <button onclick="return save_canvas()" type="submit" class="button", value="submit">Submit</button>
+                    <button onclick="clear_canvas()" type="button" class="button">Clear</button>
+                    <input type = "hidden" id ="url" name = "url" value = "">
+                    <div class="predictions">
+                        <h2>Tu palabra es: </h2>
+                        {%for i in range(0, len)%}
+                            {% if palabras%}
+                            <li class="elements"> {{ palabras[i] }}</li> 
+                            {%else%}
+                            <h2> Nothing to predict!</h2>
+                            {%endif%}
+                        {%endfor%}
+                    </div>
+                    <!-- <input oninput="draw_color = this.value" type="color" class="color-picker">
+                    <input oninput="draw_width = this.value" type="range" min="1" max="100" class="pen-range"> -->
+                </form>
+            </div>
+        </div>
+
+    </body>
+
+    <script src="{{ url_for('static', filename='scripts/drawingPanel.js') }}"></script>
+
+</html>

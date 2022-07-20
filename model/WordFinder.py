@@ -32,5 +32,6 @@ def WordFinder(prediction):
     return palabras
 
 if __name__ == '__main__':
+    
     prediction = ['R','O','C','A']
     WordFinder(prediction)

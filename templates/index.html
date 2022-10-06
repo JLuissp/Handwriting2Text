@@ -12,30 +12,26 @@
     <body>
         <div>
             <h2> Instructions:</h2>
-            <li>Escribe una palabra</li>
-            <li> click en submit</li>
-            <li> obten el la palabra en texto</li>
+            <li>Write a word over the panel en get it on text!</li>
         </div>
         <hr><br>
         </div>
         <div class="field">
             <div class="tools">
-                <form method="POST" action="/" enctype="multipart/form-data">
-                    <canvas id="canvas"></canvas>
-                    <br><br>
-                    <button onclick="return save_canvas()" type="submit" class="button", value="submit">Submit</button>
-                    <button onclick="clear_canvas()" type="button" class="button">Clear</button>
-                    <input type = "hidden" id ="url" name = "url" value = "">
+                <form method="POST" action="/" enctype="multipart/form-data" id="form1">
                     <div class="predictions">
-                        <h2>Tu palabra es: </h2>
-                        {%for i in range(0, len)%}
-                            {% if palabras%}
-                            <li class="elements"> {{ palabras[i] }}</li> 
-                            {%else%}
-                            <h2> Nothing to predict!</h2>
-                            {%endif%}
-                        {%endfor%}
-                    </div>
+                        {% if palabras%}
+                        <input id="predicted-text" type="text" class="elements" value = "{{ palabras }}"> 
+                        {%else%}
+                        <input type="text" class="elements" value = "Nothing to predict"> </li>
+                        {%endif%}
+                </div>
+                <br><br>
+                    <canvas id="canvas"></canvas>
+                <br><br>
+                    <!-- <button onclick="save_canvas()" type="submit" class="button", value="submit">Submit</button> -->
+                    <button onclick="clear_panel()" type="button" class="button">Clear</button>
+                    <input type = "hidden" id ="url" name = "url" value = "">
                     <!-- <input oninput="draw_color = this.value" type="color" class="color-picker">
                     <input oninput="draw_width = this.value" type="range" min="1" max="100" class="pen-range"> -->
                 </form>

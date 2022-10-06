@@ -28,7 +28,7 @@ def WordFinder(prediction):
             palabra = word.find('td', class_='wp-scrabble-word-column')
             letras = ''.join([i.text for i in palabra.find_all('span')])
             palabras.append(letras)
-    print(palabras)
+    #print(palabras)
     return palabras
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@ context.fillRect(0,0, canvas.width, canvas.height);
 let draw_color = "black";
 let draw_width = "10";
 let is_drawing = false;
+let timer = 3000
 
 canvas.addEventListener("touchstart", start, false);
 canvas.addEventListener("touchmove", draw, false);
@@ -26,6 +27,7 @@ function start(event) {
     is_drawing = true;
     context.beginPath();
     context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+    clearTimeout(t)
 }
 
 function draw(event) {
@@ -35,9 +37,13 @@ function draw(event) {
         context.lineWidth = draw_width;
         context.lineCap = "round";
         context.lineJoin = "round";
-        context.stroke()
+        context.stroke();
     }
     event.preventDefault();
+}
+
+function timed_save(){
+    t = setTimeout("save_canvas()", 500);
 }
 
 function stop(event) {
@@ -45,8 +51,16 @@ function stop(event) {
         context.stroke();
         context.closePath();
         is_drawing = false;
+        timed_save();
     }
     event.preventDefault();
+
+}
+
+function clear_panel(){
+    var pText = document.getElementById("predicted-text");
+    pText.value = "Nothing To predict";
+    clear_canvas();
 }
 
 function clear_canvas() { 
@@ -56,11 +70,13 @@ function clear_canvas() {
 }
 
 function save_canvas() {
+
     var image = new Image();
     var url = document.getElementById("url")
     image.id = "pic";
     image.src = canvas.toDataURL();
     url.value = image.src;
     clear_canvas();
-
+    
+    document.getElementById("form1").submit().preventDefault()
 }

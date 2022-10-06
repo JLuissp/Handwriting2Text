@@ -39,16 +39,19 @@ def index():
         pipeline = DataPipeline(image, IMG_HEIGHT, IMG_WIDTH, 10)
         letters = pipeline.get_letters()
 
-        predictions = modelo.predict(np.asarray(letters))
+        letters = sorted(letters, key=lambda x: x[1])
+        if len(letters)!=0: 
+            predictions = modelo.predict(np.asarray([i[0] for i in letters]))
+            for p in predictions:
+                word.append(categories[np.argmax(p)])
         
-        for p in predictions:
-            word.append(categories[np.argmax(p)])
-        
-    palabras = WordFinder(word)
-
+    #palabras = WordFinder(word)
+    print(word)
+    palabras = ''.join(word)
+    #print(palabras)
 
 
     return render_template('index.html', len=len(palabras), palabras=palabras)
 
 if __name__ == '__main__':
-    app.run(use_reloader = True, debug = True)
+    app.run(host = '0.0.0.0', use_reloader = True, port=8080, debug = True)

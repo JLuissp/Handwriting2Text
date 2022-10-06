@@ -38,7 +38,6 @@ class DataPipeline():
 
         # adds a padding to the individual character array
         if padding: 
-k
             img = Image.fromarray( np.pad(np.asarray(img), padding, mode=padding_mode, constant_values=padding_mode_value) )
             img = img.convert(mode=color_mode).resize((self.h, self.w), resample=Image.Resampling.BICUBIC)
 
@@ -53,7 +52,7 @@ k
         sigma_x = 6 #standard deviation in x direction.
 
         grayImageBlured = cv2.GaussianBlur(self.imageArray, gaussian_kernel_blur , sigma_x)
-        _, thresh_image = cv2.threshold(self.imageArray, threshold_range, cv2.THRESH_TOZERO)
+        _, thresh_image = cv2.threshold(self.imageArray, threshold_range[0], threshold_range[1], cv2.THRESH_TOZERO)
         edges=cv2.Canny(image = grayImageBlured, threshold1=100, threshold2=255) #finds edges in the input image.
         contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -67,16 +66,16 @@ k
             (y_min, y_max) = (contour[:][:,:,0].min(), contour[:][:,:,0].max())
 
             # filters the contours by number of angles. 
-            if len(contour)>=0 and len(contour) <=50:
+            if len(contour)>=0 and len(contour) <=88:
                 image_shape = (28,28,1)
                 digit = thresh_image[x_min:x_max,y_min:y_max]
                 #inverts the image color
                 digit = (255 - self.preprocessing(digit, padding=self.pad, flatten=False)).reshape(image_shape)
-                self.letters.append(digit)
+                self.letters.append((digit, y_min))
             if len(contour) >=90:
                 image_shape = (28,28,1)
                 digit = thresh_image[x_min:x_max,y_min:y_max]
                 digit = (255 - self.preprocessing(digit, padding=self.pad, flatten=False)).reshape(image_shape)
-                self.letters.append(digit)
+                self.letters.append((digit, y_min))
         
         return self.letters
